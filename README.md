@@ -21,7 +21,7 @@ This program is built for some very specific hardware.  You obviously should hav
 The hardware which I'm using is an ESP01S with the i2c bus mapped to GPIO1 and GPIO2.  The serial RX pin is also remapped to be a standard GPIO pin and is used by the ESP8266 to control it's own power supply via a p-channel MOSFET, latching the power on when it receives a brief power connection (from either as mmomentary switch, or from the alarm signal on the DS3231 activating the MOSFET) and turning it's own power off, once the current (pun intended) task is complete.
 
 Once the ESP01S is programmed and installed in its permanent location, the RX pin is used as the power-latch pin so that the ESP can maintain power to itself, even when the RTC alarm signal (the wake-up signal) is removed.  This means that a normal serial connection to the board will no longer work as input/output (the TX "output" will still work, but the RX "input" will not).  The firmware contains a minimal telnet server, to provide this input/output (and debug) functionality over the network.
----
+
 
 
 ### SOFTWARE
