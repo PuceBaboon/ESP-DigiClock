@@ -10,10 +10,19 @@ Nothing much very novel here, except that it has a dual display, with the top di
 
 ## Dependencies
 
+If you're using PlatformIO (and you should be!), the dependencies will automatically be handled by the included platformio.ini file.  If you're using some other, stone-age build environment, these are the libraries which ESP-DigiClock uses:-
+
++ **Ticker  --**  The Ticker library handles timing for all of the different tasks which the ESP performs.  See below for limitations if you intend to add code.
++ **TelnetStream  --**  The TelnetStream library provides a basic telnet server process on your ESP, so you can connect to it across the network *without* using a browser.
++ **Mcurses  --**  Mcurses is a very tiny subset implementation of curses, the screen-handler library.  It allows for simple line graphics and lightweight control of a simple display (such as a VT220 character-based terminal or, something probably more familiar to modern-day readers, an xterm window on an X11 display).
++ **TimeLib  --**  TimeLib is Paul Stoffregen's version of the venerable Time library, which allows you to manipulate values which we humans understand relatively easily (a minute, second, month or year, for instance) using something which is relatively easy for computers to handle; seconds since "the Epoch".
++ **RTClib  --**  RTClib is another library with a fairly long history and it allows us to easily handle the communication of the time values mentioned above when using a real-time-clock module with our ESP.
+
+
 ESP-DigiClock encapsulates a simple, telnet-based command-line interface to your ESP.  That is, the ESP connects via WiFi to your network (as normal) and you can then use old-school (insecure, but simple and lightweight) telnet to connect to the ESP and use a simple menu to execute basic tasks.  All you need is a telnet client (which is bundled with virtually all existing Linux/BSD distributions ...or "putty" on Windows).  The simple menu system will work reliably with most, normal terminals (if you have a 3-column by 200-row display, your experience may not be optimum ...ever!), but the "curses" mode demo works best with a window set to VT220 emulation mode (if you don't know what that means just congratulate yourself for being young and carry on anyway ...nothing will blow up [uhhh, don't hold me to that promise if you intend to run a nuclear power station with your ESP8266, okay?]).
 
 
-Because ESP-DigiClock uses the Ticker library to handle timing, you basically have a very simple multi-tasking system in your ESP.  It doesn't run anything simultaneously, but it does allow for other tasks to carry on running if the "current" task happens to be sitting in a wait loop of some sort.  This is by no means bullet-proof, but Ticker call-backs give you much more flexibility than a blocking delay() call.  The only down side is that you must not ++ever++ call "delay()" itself anywhere (including from libraries) in your program (see the lt_Delay() function for an example of how to live without it).
+Because ESP-DigiClock uses the Ticker library to handle timing, you basically have a very simple multi-tasking system in your ESP.  It doesn't run anything simultaneously, but it does allow for other tasks to carry on running if the "current" task happens to be sitting in a wait loop of some sort.  This is by no means bullet-proof, but Ticker call-backs give you much more flexibility than a blocking delay() call.  The only down side is that you must not *ever* call "delay()" itself anywhere (including from libraries) in your program (see the lt_Delay() function for an example of how to live without it).
 
 ##### HARDWARE
 This program is built for some very specific hardware.  You obviously should have a DS3231 RTC connected via i2c to utilize the full functionality.  However, the system clock will run and display quite happily even if you don't (and even if you're not actually using NTP).
