@@ -1,11 +1,12 @@
 # ESP-DigiClock
-Old-school curses-based digital clock ...with extras.
-
-# ESP8266 (Dual) Digital Clock
-This is a curses-based digital clock for the ESP8266.
+Set your I2C RTC module time from an **NTP-synced** ESP8266 with this old-school curses-based digital clock.
 
 ## What is it?
-Nothing much very novel here, except that it has a dual display, with the top display showing (NTP controlled) system time and the bottom showing the time from an i2c-connected, DS3231 RTC chip.  There are two basic ideas here.  The first is to get some idea of the long-term stability and accuracy of the DS3231 and the second is just to be able to quickly and easily set an RTC from (a fairly accurate) NTP controlled source.
+At the most basic level, this simply allows you to set the time on an RTC from an **NTP-synced** ESP8266.
+
+Nothing much very novel here, except that it is a dual clock display, with the top display showing (NTP controlled) system time and the bottom showing the time from an i2c-connected, DS3231 RTC chip.  There are three status lines (in addition to the actual clocks).  The NTP and RTC status lines will display the current date information (only if NTP is synced in the case of the NTP status and only if an RTC is detected as being both present and running in the case of RTC status).  The NTP status line will also display the host to which the ESP is currently synced.  The bottom line on the clock display is the system status line and will display general debug info.
+
+There is no menu, or command prompt with the current version, but entering "q", followed by a carriage-return will quit the clock display and put you back into the "Telnet" menu.  Entering "r" followed by a carriage return will set the RTC date and time to the NTP-synced ESP time.
 
 
 ## Dependencies
