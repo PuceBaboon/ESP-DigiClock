@@ -47,7 +47,7 @@ After compiling and uploading the firmware to your ESP8266, you can connect to i
 +  i  -- Start i2c detection of devices.
 +  n  -- Trigger NTP update from remote server.
 +  p  -- Toggle the MOSFET power latch to \"OFF\".
-+  q  ~~ Quit.
++  q  -- Quit.
 +  r  -- Set the DS3231 RTC time/date from NTP.
 +  s  -- Display current WiFi status.
 +  t  -- Time (display time and date).
@@ -63,7 +63,7 @@ While "c" and "h/?" are fairly obvious, some of the other options in the menu ne
 + "s" will display which access point and channel the ESP8266 is currently connected to.
 + "t" will display the current time and date on the command-line (that is, *not* the digital clock display).
 
-As noted above, the "q" option works to stop the digital clock display and return to the telnet menu, as well as to quit from the telnet session itself.  Using quit in this way is the preferred method to exit the application.  Interrupting or terminating the telnet session while the digital clock display is running will most likely leave your screen session in an unusable state.  You need to be aware that, although the display isn't operating correctly, keyboard input +is+, so be careful!  The best way to regain control of the screen is to type Control-J, "reset", Control-J (no commas, hyphens or spaces).
+As noted above, the "q" option works to stop the digital clock display and return to the telnet menu, as well as to quit from the telnet session itself.  Using quit in this way is the preferred method to exit the application.  Interrupting or terminating the telnet session while the digital clock display is running will most likely leave your screen session in an unusable state.  You need to be aware that, although the display isn't operating correctly, keyboard input **is**, so be careful!  The best way to regain control of the screen is to type Control-J, "reset", Control-J (no commas, hyphens or spaces).
 
 The application requires that you configure the following settings in src/user_config.h.  These are specific to your location.
 
