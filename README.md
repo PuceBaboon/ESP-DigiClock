@@ -39,6 +39,31 @@ Once the ESP01S is programmed and installed in its permanent location, the RX pi
 
 
 #### How do I use it?
+After compiling and uploading the firmware to your ESP8266, you can connect to it using the "telnet" command from a terminal window (ie:- xterm or putty).  Once connected to the ESP you can simply type "h" (or "?") for help, to get a listing of the available commands.  You will see the following menu:-
+
++  c  -- Clock (NTP and RTC).
++  e  -- Display ESP01S status
++  h or ?  -- This help screen.
++  i  -- Start i2c detection of devices.
++  n  -- Trigger NTP update from remote server.
++  p  -- Toggle the MOSFET power latch to \"OFF\".
++  q  ~~ Quit.
++  r  -- Set the DS3231 RTC time/date from NTP.
++  s  -- Display current WiFi status.
++  t  -- Time (display time and date).
+
+While "c" and "h/?" are fairly obvious, some of the other options in the menu need some explanation.  Most of them are debug/helper functions.
+
++ "e" will display some limited status from the ESP8266.  The most important of these is the heap size, which can indicate a memory leak in the application.
++ "i" will run the I2C probe routine and print out a simple table of addresses found.
++ "n" will request an update from the NTP server and will display the time and date once the reply is received.
++ "p" is specific to my own hardware implementation and will toggle the power to the ESP8266 by switching the state of the supply MOSFET.
++ "q" to quit (*also works from within the clock display to return to the telnet menu*).
++ "r" will update the RTC time and date from the current, NTP-synced, ESP8266 time and date.
++ "s" will display which access point and channel the ESP8266 is currently connected to.
++ "t" will display the current time and date on the command-line (that is, *not* the digital clock display).
+
+As noted above, the "q" option works to stop the digital clock display and return to the telnet menu, as well as to quit from the telnet session itself.  Using quit in this way is the preferred method to exit the application.  Interrupting or terminating the telnet session while the digital clock display is running will most likely leave your screen session in an unusable state.  You need to be aware that, although the display isn't operating correctly, keyboard input +is+, so be careful!  The best way to regain control of the screen is to type Control-J, "reset", Control-J (no commas, hyphens or spaces).
 
 The application requires that you configure the following settings in src/user_config.h.  These are specific to your location.
 
@@ -48,12 +73,6 @@ The application requires that you configure the following settings in src/user_c
 
 + **timeZone  --**  This should be a positive or negative number, denoting the offset of your location from UTC-0 (for instance, -3.5 ...looking at you, Newfoundland!).
 
-Other presets are called by using single letter arguments:-
-
-+ -i  --  "I"2C probe.  This will trigger a probe of all standard (non-extended) i2c addresses on the bus.
-+ -m  --  "M"curses test. This will clear the screen, print a simple message in the centre (mcurses test), then return to normal.
-+ -n  --  "N"TP call.   Try to force an NTP call to the specified server. Obviously will not work without a WiFi connection.
-+ -w  --  "W"hat base?  This is just some semi-random silliness which you can use to verify that the ESP is still alive.
 
 
 ##### ISSUES
