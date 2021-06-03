@@ -13,9 +13,10 @@ There is no menu, or command prompt with the current version, but entering "q", 
 
 If you're using PlatformIO (and you should be!), the dependencies will automatically be handled by the included platformio.ini file.  If you're using some other, stone-age build environment, these are the libraries which ESP-DigiClock uses:-
 
++ **Mcurses  --**  Mcurses is a very tiny subset implementation of curses, the screen-handler library.  It allows for simple line graphics and lightweight control of a display (such as a VT220 character-based terminal or, something probably more familiar to modern-day readers, an xterm window on an X11 display).
+Note that there is an outstanding bug with this version of mcurses which prevents the graphics character set from initlializing correctly, so I've included the mcurses package under the library directory (so you don't need to download it yourself).  The mcurses library was written by "Frank M" (https://www.mikrocontroller.net/articles/MCURSES), and the Arduino port was done by "ChrisMicro" (https://github.com/ChrisMicro/mcurses).
 + **Ticker  --**  The Ticker library handles timing for all of the different tasks which the ESP performs.  See below for limitations if you intend to add code.
 + **TelnetStream  --**  The TelnetStream library provides a basic telnet server process on your ESP, so you can connect to it across the network *without* using a browser.
-+ **Mcurses  --**  Mcurses is a very tiny subset implementation of curses, the screen-handler library.  It allows for simple line graphics and lightweight control of a simple display (such as a VT220 character-based terminal or, something probably more familiar to modern-day readers, an xterm window on an X11 display).
 + **TimeLib  --**  TimeLib is Paul Stoffregen's version of the venerable Time library, which allows you to manipulate values which we humans understand relatively easily (a minute, second, month or year, for instance) using something which is relatively easy for computers to handle; seconds since "the Epoch".
 + **RTClib  --**  RTClib is another library with a fairly long history and it allows us to easily handle the communication of the time values mentioned above when using a real-time-clock module with our ESP.
 
