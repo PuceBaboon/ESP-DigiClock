@@ -1,0 +1,21 @@
+
+   $Id: Creature-Feep,v 1.6 2021/05/27 13:08:13 gaijin Exp $
+
+
+  - Add display of alarm1/2 settings to RTC status line.
+
+  - Add a selection of clock screen modes:-
+	- NTP screen with full date and time.
+	- RTC mode with same.
+
+  - Add mcurses clock menu to allow user selection of modes
+    and clock colours.
+
+  - Add a mode to allow just the single, system (NTP) clock
+    as a test mode for people without an RTC.
+
+  - Add a third clock (and source) for GPS.
+
+  - Possible pop-up window for verbose status (alarm info, etc)
+    for the RTC (might also include mini-menu for setting RTC
+    manually, or from NTP locked time source).
