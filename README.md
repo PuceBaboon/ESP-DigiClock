@@ -1,7 +1,7 @@
 # ESP-DigiClock
 Set your I2C RTC module time from an **NTP-synced** ESP8266 with this old-school curses-based digital clock.
 
-![Screenshot of dual clock display](./img/ESP_DigiClock.jpg)
+![Screenshot of dual clock display](./img/ESP_DigiClock-small.jpg)
 
 ## What is it?
 At the most basic level, this simply allows you to set the time on an RTC from an **NTP-synced** ESP8266.
