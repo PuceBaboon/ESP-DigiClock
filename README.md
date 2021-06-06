@@ -97,3 +97,8 @@ Try stopping the digital clock display before requesting an OTA update (if the c
 ###### The RTC always resets to the same date/time at power-on (not the current date and time).
 The RTC initialization code will automatically check to see whether the DS3231 has flagged an oscillator-stopped condition at start-up.  If so, it will try to set the date and time from NTP (if NTP is already available), or it will set it from the compile-time of the binary.  This latter case is probably what you're seeing and the usual cause of this is a dead, or missing, RTC battery.
 
+###### Crud
+Yes, I know.  The current version does have more than its fair share of crud liberally mixed into the code.
+  For instance, my specific hardware implementation is an ESP01S with an RTC controlled P-MOSFET power switch (the RTC switches it on at set intervals to power-up the ESP01S and then the ESP itself turns the MOSFET off again when the set tasks are completed), so not only is there code for the power switch latching, but also (because of the ESP01S' lack of I/O pins) some added mucking around with re-assignment of UART pin functions, too.
+  All of this is totally unnecessary and just confusing for normal users with a standard ESP8266, so once I get things working reasonably consistently, I'll take an axe to some of it.
+
