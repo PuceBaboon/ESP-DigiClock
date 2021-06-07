@@ -13,6 +13,23 @@ There is no menu, or command prompt with the current version, but entering "q", 
 
 ## Dependencies
 
+#### !! IMPORTANT !!
+While sanitizing this code for upload, I "broke" telnet and couldn't work out what I'd done.
+  I went back to a known good snapshot and it *still* wouldn't work (telnet just failed to start).
+  It turned out that an upgrade to the ESP8266 core code pushed out while I was making my changes caused problems with the TelnetStream library.
+  So, if you download this repo and build the code, look out for a non-fatal compiler error warning of a redefine of "UDP_TX_PACKET_MAX_SIZE".
+  If you see "#define UDP_TX_PACKET_MAX_SIZE 8192", it's borked and TelnetStream will silently fail.
+  A quick fix for this is to find the TelnetStream library (generally under .pio/libdeps/ in your PlatformIO project directory) and edit the src/NetTypes.h file to comment-out the offending lines, starting at line 29:-
+~~~
+
+//  #elif __has_include(<Ethernet.h>)
+//  #include <Ethernet.h>
+//  #define NetClient EthernetClient
+//  #define NetServer EthernetServer
+
+~~~
+
+
 If you're using PlatformIO (and you should be!), the dependencies will automatically be handled by the included platformio.ini file.  If you're using some other, stone-age build environment, these are the libraries which ESP-DigiClock uses:-
 
 + **Mcurses  --**  Mcurses is a very tiny subset implementation of curses, the screen-handler library, intended for embedded use.  It allows for simple line graphics and lightweight control of a display (such as a VT220 character-based terminal or, something probably more familiar to modern-day readers, an xterm window on an X11 display).
