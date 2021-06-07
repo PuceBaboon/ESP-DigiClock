@@ -1,5 +1,5 @@
 /*
- *   $Id: alarm.ino,v 1.44 2021/05/27 09:07:09 gaijin Exp $
+ *   $Id: alarm.ino,v 1.47 2021/06/06 05:50:38 gaijin Exp $
  *  
  *  The output from the SQ/INT pin of the DS3231 is connected to
  *  the gate of a P-channel MOSFET in the positive supply line
@@ -297,12 +297,12 @@ void setup() {
   setup_wifi();
   delay(250);
 
-//  if (WiFi.status() != WL_CONNECTED) {
-//    Serial.println(F
-//      ("WiFi not currently connected.  Cannot start network-based services."));
-//  }
   Serial.println("Starting NTP process...");
   ntp_setup();
+
+  Serial.println("Starting Telnet process...");
+  Serial.flush();
+  TelnetStream.begin();
 
   /*
    * Start our scheduled tasks (Ticker.h).
@@ -316,9 +316,6 @@ void setup() {
   /*
    * Start the other, ticker-dependant processes.
    */
-  Serial.println("Starting Telnet process...");
-  Serial.flush();
-  tstr_setup();
   rtc_setup();
 
 /* OTA (Over The Air) code.  DO NOT DELETE!! */
@@ -402,34 +399,3 @@ void loop() {
   }
 }
 
-
-/* *INDENT-OFF* */
-/*
- *  Holding Area.  Might be useful, but currently
- *  not included in this project.
- *
-
-static uint8_t read_i2c_register(uint8_t addr, uint8_t reg) {
-    Wire.beginTransmission(addr);
-    Wire.write((byte)reg);
-    Wire.endTransmission();
-
-    Wire.requestFrom(addr, (byte)1);
-    return Wire.read();
-}
-
- // Convert a byte to a string.
-  String GetCharToDisplayInDebug(char value) {
-    if (value>=32 && value<=126){
-      return String(value);
-    } else if (value == 0){
-      return ".";
-    } else {
-      return String("[" + String(value, DEC) + "]");
-    } 
-  }
-
- *
- *
-*/
-/* *INDENT-ON* */

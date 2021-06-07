@@ -1,5 +1,5 @@
 /*
- *   $Id: telnet_str.ino,v 1.19 2021/06/04 22:44:28 gaijin Exp $
+ *   $Id: telnet_str.ino,v 1.20 2021/06/06 05:50:38 gaijin Exp $
  *
  * TelnetStream handling to provide over-the-air console to ESP01S
  * when the TX or RX pins are in use as standard GPIOs.
@@ -9,12 +9,7 @@
 
 #include <TelnetStream.h>
 
-void tstr_setup() {
-  TelnetStream.begin();
-}
-
 /*  Globals.  */
-// int conn_tries = 0;		// WiFi re-connect counter.
 uint8_t count_count = 0;	// Count of counts.
 
 

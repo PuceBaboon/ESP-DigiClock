@@ -1,5 +1,5 @@
 /*
- *   $Id: rtc.ino,v 1.23 2021/05/27 09:48:47 gaijin Exp $
+ *   $Id: rtc.ino,v 1.24 2021/06/05 21:49:28 gaijin Exp $
  *  
  *   RTC/DS3231 specific code.
  *
@@ -27,7 +27,7 @@
 RTC_DS3231 rtc;
 
 uint8_t alarm_sleep_mins = ALM2_SLEEP_MINS;	// Time between alarms (set in user_config.h).
-char temp_buff[10];
+char temp_buff[20];
 
 /*
  * Define BCD conversion macros.
