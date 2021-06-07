@@ -29,6 +29,7 @@ While sanitizing this code for upload, I "broke" telnet and couldn't work out wh
 //  #define NetServer EthernetServer
 
 ~~~
+   ...or you can got to [Juraj Andrássy's GitHub repository and download the already-fixed version](https://github.com/jandrassy/TelnetStream) (Thanks Juraj!).
 
 ---
 
@@ -37,7 +38,7 @@ If you're using PlatformIO (and you should be!), the dependencies will automatic
 + **Mcurses  --**  Mcurses is a very tiny subset implementation of curses, the screen-handler library, intended for embedded use.  It allows for simple line graphics and lightweight control of a display (such as a VT220 character-based terminal or, something probably more familiar to modern-day readers, an xterm window on an X11 display).
 Note that there is an minor bug with this version of mcurses which prevents the graphics character set from initializing correctly, so I've included the mcurses package under the library directory (meaning that you *don't* need to download it yourself).  The mcurses library was written by "Frank M" (https://www.mikrocontroller.net/articles/MCURSES), and the Arduino port was done by "ChrisMicro" (https://github.com/ChrisMicro/mcurses).
 + **Ticker  --**  The Ticker library handles timing for all of the different tasks which the ESP performs.  See below for limitations if you intend to add code. The Ticker library was written by Stefan Staub (https://github.com/sstaub/Ticker).
-+ **TelnetStream  --**  The TelnetStream library provides a basic telnet server process on your ESP, so you can connect to it across the network *without* using a browser.  The TelnetStream library comes from Juraj Andrassy (https://github.com/jandrassy/TelnetStream).
++ **TelnetStream  --**  The TelnetStream library provides a basic telnet server process on your ESP, so you can connect to it across the network *without* using a browser.  The TelnetStream library comes from Juraj Andrássy (https://github.com/jandrassy/TelnetStream).
 + **TimeLib  --**  TimeLib is Paul Stoffregen's version (https://github.com/PaulStoffregen/Time) of Michael Margolis' venerable Time library, which allows you to manipulate values which we humans understand relatively easily (a minute, second, month or year, for instance) using something which is relatively easy for computers to handle; seconds since "the Epoch".
 + **RTClib  --**  RTClib is Adafruit's version (https://github.com/adafruit/RTClib) of "Jeelab's fantastic RTC library" and it allows us to easily handle the communication of the time values mentioned above between a real-time-clock module and an ESP8266.
 
