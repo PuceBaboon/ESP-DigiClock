@@ -13,6 +13,7 @@ There is no menu, or command prompt with the current version, but entering "q", 
 
 ## Dependencies
 
+---
 #### !! IMPORTANT !!
 While sanitizing this code for upload, I "broke" telnet and couldn't work out what I'd done.
   I went back to a known good snapshot and it *still* wouldn't work (telnet just failed to start).
@@ -29,6 +30,7 @@ While sanitizing this code for upload, I "broke" telnet and couldn't work out wh
 
 ~~~
 
+---
 
 If you're using PlatformIO (and you should be!), the dependencies will automatically be handled by the included platformio.ini file.  If you're using some other, stone-age build environment, these are the libraries which ESP-DigiClock uses:-
 
