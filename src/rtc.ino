@@ -1,5 +1,5 @@
 /*
- *   $Id: rtc.ino,v 1.24 2021/06/05 21:49:28 gaijin Exp $
+ *   $Id: rtc.ino,v 1.25 2021/06/09 00:51:35 gaijin Exp $
  *  
  *   RTC/DS3231 specific code.
  *
@@ -72,7 +72,9 @@ void rtc_setup() {
     Sout("RTC: Unable to connect to the DS3231 RTC.");
     rtc_running_f = FALSE;
     return;
-  }
+  } else {
+    rtc_avail_f = TRUE;			// RTC is available and responding,
+  }					// although clock might not be running
     
   /* 
   * To statically set the date and time, use:-
@@ -141,6 +143,8 @@ void rtc_qtest() {
     Sout("RTC WARNING:  Lost power -- possible RTC battery problem.");
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
+  rtc_avail_f = TRUE;			// RTC is available and responding,
+					// although clock might not be running
 
   /*
    * Update the RTC curses-based clock display (including
@@ -169,6 +173,9 @@ void updt_RTC() {
   uint8_t r_sec = 0;
 
   /* Get the time from the DS3231 RTC. */
+  if (rtc_avail_f != TRUE) {
+    Sout("RTC: DS3231 is flagged an -not- available.");
+  }
   if (rtc_running_f == TRUE) {
     // Sout("RTC: Fetching date/time from DS3231.");
     DateTime rtc_time = rtc.now();
@@ -177,8 +184,6 @@ void updt_RTC() {
     r_hr = rtc_time.hour();
     r_min = rtc_time.minute();
     r_sec = rtc_time.second();
-  } else {
-    Sout("RTC: DS3231 is flagged as -not- running.");
   }
    
   for (i = RH1; i <= RS2; i++) {

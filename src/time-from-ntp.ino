@@ -1,5 +1,5 @@
 /*
- *   $Id: time-from-ntp.ino,v 1.20 2021/05/27 08:38:13 gaijin Exp $
+ *   $Id: time-from-ntp.ino,v 1.21 2021/06/09 00:51:35 gaijin Exp $
  *
  * TimeNTP_ESP8266WiFi.ino
  * Example from Paul Stoffregen's Time library demostrating how
@@ -60,6 +60,10 @@ void updtNtpTimeStat(){
   /* Bug in TimeLib 1.6.0?? */
   static const char *shortDoW[] = { "XXX", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 
+  if (rtc_avail_f != TRUE) {
+    Sout("RTC: DS3231 is flagged as -not- available.");
+    return;
+  }
   if (ntp_synced_f == TRUE) {
 
     /* If we have and RTC date/time update pending, take care of it first. */

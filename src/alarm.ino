@@ -1,5 +1,5 @@
 /*
- *   $Id: alarm.ino,v 1.47 2021/06/06 05:50:38 gaijin Exp $
+ *   $Id: alarm.ino,v 1.52 2021/06/09 00:51:35 gaijin Exp $
  *  
  *  The output from the SQ/INT pin of the DS3231 is connected to
  *  the gate of a P-channel MOSFET in the positive supply line
@@ -54,21 +54,27 @@
  */
 /*
 typedef struct {
-  uint ntp_updt_rq :1;		// Trigger NTP time update from remote server.
-  uint rtc_updt_rq :1;		// Trigger RTC time update.
-  uint clk_updt_rq :1;		// Trigger (mcurses-based) clock display update.
-  rtc_sync_req     :1;		// Trigger RTC time/date set from fresh NTP data.
-  uint pwroff_f    :1;		// Power down system (MOSFET).
-  uint rtc_rng_f   :1;		// DS3231 is not present or not running.
-  uint curs_stat_f :1;		// Curses-based status display is active.
-  uint tlnt_stat_f :1;		// Telnet-based status display is active.
-  uint stop_clk_f  :1;		// Stop clock display (and exit curses) when TRUE.
-  uint ntp_syncd_f :1;		// Are we synced to an NTP server? (Not initially).
-} sflgs;
+  uint16_t ntp_updt_rq :1;		// Trigger NTP time update from remote server.
+  uint16_t rtc_updt_rq :1;		// Trigger RTC time update.
+  uint16_t clk_updt_rq :1;		// Trigger (mcurses-based) clock display update.
+  uint16_t rtc_sync_rq :1;		// Trigger RTC time/date set from fresh NTP data.
+  uint16_t pwroff_f    :1;		// Power down system (MOSFET).
+  uint16_t rtc_rng_f   :1;		// DS3231 is not present or not running.
+  uint16_t curs_stat_f :1;		// Curses-based status display is active.
+  uint16_t tlnt_stat_f :1;		// Telnet-based status display is active.
+  uint16_t stop_clk_f  :1;		// Stop clock display (and exit curses) when TRUE.
+  uint16_t ntp_syncd_f :1;		// Are we synced to an NTP server? (Not initially).
+  uint16_t spare_5     :1;		// Cleverly disguised halt-and-catch-fire flag.
+  uint16_t spare_4     :1;
+  uint16_t spare_3     :1;
+  uint16_t spare_2     :1;
+  uint16_t spare_1     :1;
+  uint16_t spare_0     :1;
+} StatFlags;
+static StatFlags sf = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
  *
  * Waiting for Godot (and inspiration).
  */
-
 
 /*
  * Global state flags.
@@ -81,6 +87,7 @@ bool rtc_update_req = FALSE;	// Trigger RTC time update.
 bool clk_update_req = FALSE;	// Trigger (mcurses-based) clock display update.
 bool rtc_sync_req   = FALSE;	// Trigger RTC time/date set from fresh NTP data.
 bool poweroff_f     = FALSE;	// Power down system (MOSFET).
+bool rtc_avail_f    = FALSE;	// RTC is present and responding on i2c bus.
 bool rtc_running_f  = FALSE;	// DS3231 is not present or not running.
 bool curs_status_f  = FALSE;	// Curses-based status display is active.
 bool telnet_stat_f  = FALSE;	// Telnet-based status display is active.
@@ -303,6 +310,7 @@ void setup() {
   Serial.println("Starting Telnet process...");
   Serial.flush();
   TelnetStream.begin();
+
 
   /*
    * Start our scheduled tasks (Ticker.h).

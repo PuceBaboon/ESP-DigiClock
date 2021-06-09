@@ -1,5 +1,5 @@
 
-   $Id: Creature-Feep,v 1.6 2021/05/27 13:08:13 gaijin Exp $
+   $Id: Creature-Feep,v 1.7 2021/06/09 00:51:35 gaijin Exp $
 
 
   - Add display of alarm1/2 settings to RTC status line.
@@ -19,3 +19,9 @@
   - Possible pop-up window for verbose status (alarm info, etc)
     for the RTC (might also include mini-menu for setting RTC
     manually, or from NTP locked time source).
+
+  - Add alternate display mode (only enabled when RTC is
+    available) with clock display on top line and temperature
+    on bottom (with date if space avail). C/F setting in
+    user_config.h.
+
